@@ -1,0 +1,15 @@
+@import "../../styles/variables.css";
+
+.app_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10em;
+  min-height: 100vh;
+  background-color: var(--secondary-color);
+}
+
+.main_container {
+  flex: 1;
+}
