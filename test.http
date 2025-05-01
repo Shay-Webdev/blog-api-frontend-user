@@ -1,0 +1,34 @@
+GET  http://localhost:3000/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2hheUBtYWlsLmNvbSIsInVzZXJuYW1lIjoic2hheSIsImlzQXV0aG9yIjp0cnVlLCJpYXQiOjE3NDU5NTAzNzQsImV4cCI6MTc0NTk1MDQzNH0.3MxDhPJJ4jbxbZ1kFdB4A_oiqjsYiKBEixCJxzbnCgg
+
+### get users
+
+POST http://localhost:3000/login
+Content-Type: application/json
+
+  {
+    "email":"shay@mail.com",
+    "password":"Shay@123"
+  }
+
+### login
+
+GET http://localhost:3000/token/refresh
+Content-Type: application/json
+
+{
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzaGF5QG1haWwuY29tIiwidXNlcm5hbWUiOiJzaGF5IiwiaXNBdXRob3IiOnRydWUsImlhdCI6MTc0NTk1MDM3NCwiZXhwIjoxNzQ2NTU1MTc0fQ.rfk0mw14GKjo63wCz3ciZuThW9vTYaSnINQ2GJbhOpo"
+}
+
+### refresh token
+
+DELETE http://localhost:3000/logout
+Content-Type: application/json
+
+  {
+    "refreshToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzaGF5QG1haWwuY29tIiwidXNlcm5hbWUiOiJzaGF5IiwiaXNBdXRob3IiOnRydWUsImlhdCI6MTc0NDA4NTAxMywiZXhwIjoxNzQ0Njg5ODEzfQ.em6UvqZAXs7WAmIxIo0kjMafTGS-bPgqP34cAPJ1UFk"
+  }
+
+### logout
+ "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoic2hheUBtYWlsLmNvbSIsInVzZXJuYW1lIjoic2hheSIsImlzQXV0aG9yIjp0cnVlLCJpYXQiOjE3NDU5NTAzNzQsImV4cCI6MTc0NTk1MDQzNH0.3MxDhPJJ4jbxbZ1kFdB4A_oiqjsYiKBEixCJxzbnCgg",
+        "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZW1haWwiOiJzaGF5QG1haWwuY29tIiwidXNlcm5hbWUiOiJzaGF5IiwiaXNBdXRob3IiOnRydWUsImlhdCI6MTc0NTk1MDM3NCwiZXhwIjoxNzQ2NTU1MTc0fQ.rfk0mw14GKjo63wCz3ciZuThW9vTYaSnINQ2GJbhOpo"
