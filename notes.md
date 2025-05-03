@@ -36,24 +36,26 @@
 
 ## routes
 
-http://localhost:3000/ (root route-not implemented)
+<http://localhost:3000/> (root route-not implemented)
 
-GET POST http://localhost:3000/users
-GET PUT http://localhost:3000/users/:userId
-PUT http://localhost:3000/users/author/:userId
+GET POST <http://localhost:3000/users>
+GET PUT <http://localhost:3000/users/:userId>
+PUT <http://localhost:3000/users/author/:userId>
 
-GET POST http://localhost:3000/posts
-GET PUT DELETE http://localhost:3000/posts/:postId
-GET http://localhost:3000/posts/:userId/posts
+GET POST <http://localhost:3000/posts>
+GET PUT DELETE <http://localhost:3000/posts/:postId>
+GET <http://localhost:3000/posts/:userId/posts>
 
-GET POST http://localhost:3000/signup/posts/:postId/comments
-GET PUT DELETE http://localhost:3000/signup/posts/:postId/comments/:commentId
+POST <http://localhost:3000/signup/posts>
 
-POST http://localhost:3000/login
+GET POST <http://localhost:3000/posts/:postId/comments>
+GET PUT DELETE <http://localhost:3000/posts/:postId/comments/:commentId>
+/posts/:postId/comments
+POST <http://localhost:3000/login>
 
-DELETE http://localhost:3000/logout
+DELETE <http://localhost:3000/logout>
 
-GET http://localhost:3000/token/refresh
+POST <http://localhost:3000/token/refresh>
 
 commentRoutes
 .route('/')

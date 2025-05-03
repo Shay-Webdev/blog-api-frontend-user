@@ -1,4 +1,6 @@
 import { jwtDecode } from "jwt-decode";
+import { fetchWrapperParam, postApi } from "./fetchWrapper";
+import { urlPaths } from "./urlPaths";
 
 function isTokenExpired(token: string) {
   const decodedToken = jwtDecode(token);
@@ -18,26 +20,16 @@ function isTokenExpired(token: string) {
 }
 
 async function refreshToken(refreshToken: string) {
-  try {
-    const url = import.meta.env.VITE_GET_REFRESH_TOKEN_PATH;
-    console.log("url in refreshToken: ", url);
-    const response = await fetch("http://localhost:3000/token/refresh", {
-      mode: "cors",
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-
-      body: JSON.stringify({ refreshToken: refreshToken }),
-    });
-    const data = await response.json();
-    console.log("data in refresh token: ", data);
-
-    return data;
-  } catch (error) {
-    console.log("Http error in refresh token: ", error);
-    throw new Error(`Http Error in refresh token : ${error}`);
-  }
+  const url = urlPaths.tokenUrl.token_Refresh;
+  console.log("url in refreshToken: ", url);
+  const fetchParams: fetchWrapperParam = {
+    url,
+    opts: {
+      body: JSON.stringify({ refreshToken }),
+    },
+  };
+  const responseData = postApi(fetchParams);
+  return responseData;
 }
 
 export { isTokenExpired, refreshToken };
