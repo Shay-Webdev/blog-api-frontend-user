@@ -1,28 +1,32 @@
 export type fetchWrapperParam = {
   url: string | URL | globalThis.Request;
-  opts?: RequestInit;
+  opts?: Omit<RequestInit, "body"> & {
+    body?: BodyInit | Record<string, unknown>;
+  };
 };
 const fetchWrapper = async <T>(props: fetchWrapperParam) => {
   const { url, opts } = props;
   const defaultOpts: RequestInit = {
     mode: "cors",
   };
-  let body: BodyInit | null | undefined = opts?.body;
+  let body: BodyInit | Record<string, unknown> | undefined = opts?.body;
   let headers: HeadersInit | undefined = opts?.headers;
-  if (body && !(body instanceof ReadableStream)) {
-    if (typeof body !== "string") {
-      body = JSON.stringify(body);
-    }
+  if (body && typeof body === "object" && !(body instanceof ReadableStream)) {
+    body = JSON.stringify(body);
+
     headers = {
       ...headers,
       "Content-Type": "application/json",
     };
   }
+
   const parsedOpts = {
     ...opts,
     body,
     headers,
   };
+  //  console.log("parsed opts in fetch wrapper: ", parsedOpts);
+
   const abortController = new AbortController();
   const abortTimeout = setTimeout(() => {
     abortController.abort();
@@ -35,9 +39,14 @@ const fetchWrapper = async <T>(props: fetchWrapperParam) => {
     });
     clearTimeout(abortTimeout);
     if (response.status >= 400) {
-      console.error(`fetch request failed: `, await response.json());
+      console.error(
+        `fetch request failed in fetch wrapper: `,
+        await response.json(),
+      );
 
-      throw new Error(`Fetch request failed with : ${response} `);
+      throw new Error(
+        `Fetch request failed with : ${String(response.status)}, ${String(response.statusText)} `,
+      );
     }
     const contentType = response.headers.get("content-type");
     if (contentType && contentType.includes("application/json")) {
@@ -90,6 +99,12 @@ const postApi = async <T>(props: fetchWrapperParam) => {
       method: "POST",
     },
   };
+  console.log(
+    "props in postApi: ",
+    props,
+    "fetch params in postApi: ",
+    fetchParams,
+  );
   return fetchWrapper<T>(fetchParams);
 };
 

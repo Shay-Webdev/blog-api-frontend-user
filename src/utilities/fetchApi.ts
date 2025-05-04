@@ -19,17 +19,18 @@ function isTokenExpired(token: string) {
   return isTokenExpired;
 }
 
-async function refreshToken(refreshToken: string) {
+async function refreshAccessToken(refreshToken: string) {
   const url = urlPaths.tokenUrl.token_Refresh;
   console.log("url in refreshToken: ", url);
+  console.log("refreshToken in refreshToken: ", refreshToken);
   const fetchParams: fetchWrapperParam = {
     url,
     opts: {
-      body: JSON.stringify({ refreshToken }),
+      body: { refreshToken: refreshToken },
     },
   };
   const responseData = postApi(fetchParams);
   return responseData;
 }
 
-export { isTokenExpired, refreshToken };
+export { isTokenExpired, refreshAccessToken };

@@ -3,7 +3,9 @@ import styles from "./App.module.css";
 import { Header } from "../../components/Header/Header";
 import { Footer } from "../../components/Footer/Footer";
 import { Outlet } from "react-router-dom";
-import { /*isTokenExpired,*/ refreshToken } from "../../utilities/fetchApi";
+import {
+  /*isTokenExpired,*/ refreshAccessToken,
+} from "../../utilities/fetchApi";
 import { useEffect } from "react";
 
 function App() {
@@ -11,7 +13,7 @@ function App() {
     async function fetchhandler() {
       try {
         const refToken = import.meta.env.VITE_REFRESH_TOKEN as string;
-        const refreshTokenRes = await refreshToken(refToken);
+        const refreshTokenRes = await refreshAccessToken(refToken);
         console.log(
           "refresh Token Response in app: ",
           refreshTokenRes,
