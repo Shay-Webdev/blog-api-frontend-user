@@ -1,10 +1,11 @@
+import { SuccessResponse } from "../types/response.ts";
 export type fetchWrapperParam = {
   url: string | URL | globalThis.Request;
   opts?: Omit<RequestInit, "body"> & {
     body?: BodyInit | Record<string, unknown>;
   };
 };
-const fetchWrapper = async <T>(props: fetchWrapperParam) => {
+const fetchWrapper = async (props: fetchWrapperParam) => {
   const { url, opts } = props;
   const defaultOpts: RequestInit = {
     mode: "cors",
@@ -51,7 +52,8 @@ const fetchWrapper = async <T>(props: fetchWrapperParam) => {
     const contentType = response.headers.get("content-type");
     if (contentType && contentType.includes("application/json")) {
       console.log(`Fetch successfull`);
-      const data: T = await response.json();
+      const data: SuccessResponse<Record<string, unknown>> =
+        await response.json();
       return data;
     } else {
       throw new Error("Response is not JSON");
@@ -69,7 +71,7 @@ const fetchWrapper = async <T>(props: fetchWrapperParam) => {
   }
 };
 
-const getApi = async <T>(props: fetchWrapperParam) => {
+const getApi = async (props: fetchWrapperParam) => {
   const { url, opts } = props;
   const fetchParams: fetchWrapperParam = {
     url,
@@ -78,20 +80,11 @@ const getApi = async <T>(props: fetchWrapperParam) => {
       method: "GET",
     },
   };
-  return fetchWrapper<T>(fetchParams);
+  return fetchWrapper(fetchParams);
 };
 
-const postApi = async <T>(props: fetchWrapperParam) => {
+const postApi = async (props: fetchWrapperParam) => {
   const { url, opts } = props;
-  //  let body: BodyInit | null | undefined = opts?.body
-  //  let headers: HeadersInit | undefined = opts?.headers
-  //  if (body && !(body instanceof ReadableStream)){
-  //    body = JSON.stringify(body)
-  //    headers = {
-  //      ...headers,
-  //      "Content-Type":"application/json"
-  //    }
-  //  }
   const fetchParams: fetchWrapperParam = {
     url,
     opts: {
@@ -99,16 +92,16 @@ const postApi = async <T>(props: fetchWrapperParam) => {
       method: "POST",
     },
   };
-  console.log(
-    "props in postApi: ",
-    props,
-    "fetch params in postApi: ",
-    fetchParams,
-  );
-  return fetchWrapper<T>(fetchParams);
+  //  console.log(
+  //    "props in postApi: ",
+  //    props,
+  //    "fetch params in postApi: ",
+  //    fetchParams,
+  //  );
+  return fetchWrapper(fetchParams);
 };
 
-const deleteApi = async <T>(props: fetchWrapperParam) => {
+const deleteApi = async (props: fetchWrapperParam) => {
   const { url, opts } = props;
   const fetchParams: fetchWrapperParam = {
     url,
@@ -117,10 +110,10 @@ const deleteApi = async <T>(props: fetchWrapperParam) => {
       method: "DELETE",
     },
   };
-  return fetchWrapper<T>(fetchParams);
+  return fetchWrapper(fetchParams);
 };
 
-const putApi = async <T>(props: fetchWrapperParam) => {
+const putApi = async (props: fetchWrapperParam) => {
   const { url, opts } = props;
   const fetchParams: fetchWrapperParam = {
     url,
@@ -129,7 +122,7 @@ const putApi = async <T>(props: fetchWrapperParam) => {
       method: "PUT",
     },
   };
-  return fetchWrapper<T>(fetchParams);
+  return fetchWrapper(fetchParams);
 };
 
 export { fetchWrapper, getApi, postApi, putApi, deleteApi };

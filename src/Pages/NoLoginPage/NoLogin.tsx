@@ -1,14 +1,13 @@
-import { useLocalStorage } from "../../hooks/useLocalStorage";
-
+import styles from "./NoLogin.module.css";
+import { Link } from "react-router-dom";
 const NoLogin = () => {
-  const [counter, setCounter] = useLocalStorage("counter", 0);
-  const handler = () => {
-    setCounter(counter + 1);
-  };
   return (
-    <div>
-      <h1>{counter}</h1>
-      <button onClick={handler}>Increase</button>
+    <div className={styles.noLoginContainer}>
+      <h1>Logged Out !</h1>
+      <p>
+        <Link to="/login">Login</Link> or <Link to="/signup">Sign up</Link> to
+        continue
+      </p>
     </div>
   );
 };
