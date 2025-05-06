@@ -5,8 +5,8 @@ const NoLogin = () => {
     <div className={styles.noLoginContainer}>
       <h1>Logged Out !</h1>
       <p>
-        <Link to="/login">Login</Link> or <Link to="/signup">Sign up</Link> to
-        continue
+        <Link to="nologin/login">Login</Link> or{" "}
+        <Link to="/signup">Sign up</Link> to continue
       </p>
     </div>
   );

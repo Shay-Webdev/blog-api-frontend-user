@@ -1,5 +1,9 @@
 :root {
-  --primary-color: #872c30;
-  --secondary-color: #c9c9ba;
-  --accent: #a64835;
+  --glowing-red: #ff3d00;
+  --vivid-orange: #ff8c00;
+  --dark-charcoal: #1a1a1a;
+  --soft-white: #f5f5f5;
+  --cool-gray: #4b5eaa;
+  --glow-shadow: rgba(255, 61, 0, 0.5);
+  --orange-glow: rgba(255, 140, 0, 0.5);
 }

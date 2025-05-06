@@ -1,10 +1,10 @@
-import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
+import { MyNavLink } from "../../Pages/MyLink/MyLink";
 function Header() {
   return (
     <header className={styles.header}>
       <h1>Blog it!</h1>
-      <Link to={"/"}>Home</Link>
+      <MyNavLink To="/">Home</MyNavLink>
     </header>
   );
 }
