@@ -7,6 +7,6 @@
   justify-content: center;
   align-items: center;
 
-  background-color: var(--background);
-  color: var(--primary-text);
+  background-color: var(soft-white);
+  color: var(dark-charcoal);
 }

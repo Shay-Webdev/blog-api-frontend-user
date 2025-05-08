@@ -1,2 +1,5 @@
-.login_form {
+.button_container {
+  display: flex;
+  justify-content: end;
+  align-items: center;
 }

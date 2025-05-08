@@ -1,13 +1,18 @@
+import { MyButton } from "../../components/CustomButton/CustomButton";
+import { CustomForm } from "../../components/CustomForm/MyForm";
+import { MyInput } from "../../components/CustomInput/CustomInput";
 import styles from "./Login.module.css";
 const Login = () => {
+  const onClickHandler = () => {};
   return (
     <>
-      <form action="" className={styles.login_form}>
-        <label htmlFor="login_email">Email: </label>
-        <input type="email" id="login_email" />
-        <label htmlFor="login_email">Email: </label>
-        <input type="email" id="login_email" />
-      </form>
+      <CustomForm legend="Login" action="/">
+        <MyInput type="email" id="login_email" label="Email" />
+        <MyInput type="password" id="login_password" label="Password" />
+        <div className={styles.button_container}>
+          <MyButton onClickHandler={onClickHandler}>Login</MyButton>
+        </div>
+      </CustomForm>
     </>
   );
 };

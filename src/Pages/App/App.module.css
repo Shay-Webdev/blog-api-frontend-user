@@ -8,7 +8,7 @@
   align-items: center;
   gap: 10em;
   min-height: 100vh;
-  background-color: var(--soft-white);
+  background-color: var(--medium-gray);
   color: var(--dark-charcoal);
   font-family: "Inter", sans-serif;
   line-height: 1.6;

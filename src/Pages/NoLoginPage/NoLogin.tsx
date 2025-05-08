@@ -1,15 +1,22 @@
 import styles from "./NoLogin.module.css";
-import { Link } from "react-router-dom";
-const NoLogin = () => {
+import { Link, Outlet } from "react-router-dom";
+const LoginOrSignup = () => {
   return (
     <div className={styles.noLoginContainer}>
       <h1>Logged Out !</h1>
       <p>
-        <Link to="nologin/login">Login</Link> or{" "}
-        <Link to="/signup">Sign up</Link> to continue
+        <Link to="login">Login</Link> or <Link to="signup">Sign up</Link> to
+        continue
       </p>
     </div>
   );
 };
+const NoLogin = () => {
+  return (
+    <div className="nologin_container">
+      <Outlet />
+    </div>
+  );
+};
 
-export { NoLogin };
+export { NoLogin, LoginOrSignup };
