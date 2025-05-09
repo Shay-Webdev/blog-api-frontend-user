@@ -1,7 +1,7 @@
 import {
   ChangeEventHandler,
-  HTMLAttributes,
   HTMLInputTypeAttribute,
+  InputHTMLAttributes,
 } from "react";
 import styles from "./CustomInput.module.css";
 
@@ -10,15 +10,16 @@ type CustomInputProps = {
   className?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   value?: string;
-} & HTMLAttributes<HTMLInputElement>;
+} & InputHTMLAttributes<HTMLInputElement>;
 const CustomInput = (props: CustomInputProps) => {
-  const { type, value, onChange, className } = props;
+  const { type, value, onChange, className, name } = props;
   return (
     <input
       type={type}
       className={className}
       onChange={onChange}
       value={value}
+      name={name}
     />
   );
 };
@@ -27,7 +28,7 @@ type MyInputProps = {
   label: string;
 } & CustomInputProps;
 const MyInput = (props: MyInputProps) => {
-  const { type, onChange, value, label, id } = props;
+  const { type, onChange, value, label, id, name } = props;
   return (
     <div className={styles.myinput_container}>
       <label htmlFor={id}>{label}</label>
@@ -37,6 +38,7 @@ const MyInput = (props: MyInputProps) => {
         value={value}
         type={type}
         id={id}
+        name={name}
       />
     </div>
   );

@@ -1,11 +1,11 @@
-import { ReactNode } from "react";
+import { FormHTMLAttributes, ReactNode } from "react";
 import styles from "./MyForm.module.css";
 
 type CustomFormType = {
   action: string | ((formData: FormData) => void | Promise<void>);
   legend: string;
   children: ReactNode;
-};
+} & FormHTMLAttributes<HTMLFormElement>;
 
 const CustomForm = (props: CustomFormType) => {
   const { children, action, legend } = props;

@@ -1,9 +1,10 @@
-import { HtmlHTMLAttributes, MouseEventHandler } from "react";
+import { ButtonHTMLAttributes, MouseEventHandler } from "react";
 import styles from "./CustomButton.module.css";
 
 type CustomBtnProps = {
-  onClickHandler: MouseEventHandler<HTMLButtonElement>;
-} & HtmlHTMLAttributes<HTMLButtonElement>;
+  onClickHandler?: MouseEventHandler<HTMLButtonElement>;
+  type?: "button" | "submit" | "reset";
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 const CustomButton = (props: CustomBtnProps) => {
   const { onClickHandler, className, children } = props;
   return (
