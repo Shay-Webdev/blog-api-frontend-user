@@ -4,34 +4,51 @@ import { MyInput } from "../../components/CustomInput/CustomInput";
 import styles from "./Login.module.css";
 import { urlPaths } from "../../utilities/urlPaths.ts";
 import { useNavigate } from "react-router-dom";
-import { string, z } from "zod";
+import { string, z, ZodError } from "zod";
 import { ChangeEventHandler, useActionState, useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
 import { ErrorBoundaryWrapper } from "../Error/Error.tsx";
+import { fetchWrapperParam, postApi } from "../../utilities/fetchWrapper.ts";
+import { setLocalItem } from "../../utilities/localStorage.ts";
 
 const loginSchema = z.object({
   email: string().email(),
-  password: string().min(8),
+  password: string().min(8, "password must contain minimum 8 characters"),
 });
 
 type loginCredentials = z.infer<typeof loginSchema>;
 
 const Login = () => {
   //  const navigate = useNavigate();
-  //  const loginUrl = urlPaths.sessionUrl.login;
+  const loginUrl = urlPaths.sessionUrl.login;
   const { showBoundary } = useErrorBoundary();
 
-  const formAcion = (prevState: unknown, formData: FormData) => {
+  const formAcion = async (prevState: unknown, formData: FormData) => {
     const formValues = Object.fromEntries(formData);
     const result = loginSchema.safeParse(formValues);
     if (result.error) {
-      console.log(`error in login: `, result.error.message);
-      showBoundary(result.error);
+      console.log(`error in login validation: `, result.error.message);
+      return result.error;
     }
-    if (result.success) {
-      console.log(`zod parse in login: `, result);
+    try {
+      const loginProps: fetchWrapperParam = {
+        url: loginUrl,
+        opts: {
+          body: formValues,
+        },
+      };
+      const response = await postApi(loginProps);
+      const refreshToken = response.data.refreshToken;
+      const accessToken = response.data.token;
+      setLocalItem("refreshToken", refreshToken);
+      setLocalItem("accessToken", accessToken);
+      console.log(`tokens in login : `, refreshToken, accessToken)
+
+
+      return response;
+    } catch (error) {
+      showBoundary(error);
     }
-    return result;
   };
 
   const [state, action, isPending] = useActionState(formAcion, undefined);
@@ -54,7 +71,6 @@ const Login = () => {
           label="Email"
           name="email"
           onChange={onChangeHandler}
-          defaultValue={state?.data?.email}
           value={inputValue?.email}
         />
         <MyInput
@@ -63,7 +79,6 @@ const Login = () => {
           label="Password"
           name="password"
           onChange={onChangeHandler}
-          defaultValue={state?.data?.password}
           value={inputValue?.password}
         />
         <div className={styles.button_container}>
@@ -71,19 +86,12 @@ const Login = () => {
             Login
           </MyButton>
         </div>
-        {state?.error && (
+        {state instanceof ZodError && (
           <span style={{ color: "red" }} className={styles.error_span}>
-            {state?.error.errors.map((error) => {
+            {state?.errors.map((error) => {
               return <p>* {error.message}</p>;
             })}
           </span>
-        )}
-
-        {state?.success && (
-          <span
-            style={{ color: "green" }}
-            className={styles.errorSpan}
-          >{`Submitted succesfully`}</span>
         )}
       </CustomForm>
     </>
