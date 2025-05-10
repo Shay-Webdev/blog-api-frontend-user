@@ -6,32 +6,44 @@ import { urlPaths } from "../../utilities/urlPaths.ts";
 import { useNavigate } from "react-router-dom";
 import { string, z } from "zod";
 import { ChangeEventHandler, useActionState, useState } from "react";
+import { useErrorBoundary } from "react-error-boundary";
+import { ErrorBoundaryWrapper } from "../Error/Error.tsx";
 
 const loginSchema = z.object({
   email: string().email(),
   password: string().min(8),
 });
 
-const formAcion = (prevState: unknown, formData: FormData) => {
-  const formValues = Object.fromEntries(formData);
-  const result = loginSchema.safeParse(formValues);
-  if (result.error) {
-    console.log(`error in login: `, result.error.message);
-  }
-  if (result.success) {
-    console.log(`zod parse in login: `, result);
-  }
-  return result;
-};
+type loginCredentials = z.infer<typeof loginSchema>;
 
 const Login = () => {
   //  const navigate = useNavigate();
   //  const loginUrl = urlPaths.sessionUrl.login;
+  const { showBoundary } = useErrorBoundary();
+
+  const formAcion = (prevState: unknown, formData: FormData) => {
+    const formValues = Object.fromEntries(formData);
+    const result = loginSchema.safeParse(formValues);
+    if (result.error) {
+      console.log(`error in login: `, result.error.message);
+      showBoundary(result.error);
+    }
+    if (result.success) {
+      console.log(`zod parse in login: `, result);
+    }
+    return result;
+  };
+
   const [state, action, isPending] = useActionState(formAcion, undefined);
-  const [inputValue, setInputValue] = useState<string | undefined>("");
+  const [inputValue, setInputValue] = useState<
+    Partial<loginCredentials> | undefined
+  >(undefined);
 
   const onChangeHandler: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInputValue(e.currentTarget.value);
+    setInputValue({
+      ...inputValue,
+      [e.currentTarget.name]: e.currentTarget.value,
+    });
   };
   return (
     <>
@@ -43,7 +55,7 @@ const Login = () => {
           name="email"
           onChange={onChangeHandler}
           defaultValue={state?.data?.email}
-          value={inputValue}
+          value={inputValue?.email}
         />
         <MyInput
           type="password"
@@ -52,7 +64,7 @@ const Login = () => {
           name="password"
           onChange={onChangeHandler}
           defaultValue={state?.data?.password}
-          value={inputValue}
+          value={inputValue?.password}
         />
         <div className={styles.button_container}>
           <MyButton type="submit" disabled={isPending}>
@@ -78,4 +90,11 @@ const Login = () => {
   );
 };
 
-export { Login };
+const LoginWrapper = () => {
+  return (
+    <ErrorBoundaryWrapper>
+      <Login></Login>
+    </ErrorBoundaryWrapper>
+  );
+};
+export { Login, LoginWrapper };

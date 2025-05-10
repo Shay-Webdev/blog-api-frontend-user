@@ -1,4 +1,4 @@
-.container {
+.root_error {
   min-width: 100vw;
   min-height: 100vh;
 
@@ -6,7 +6,27 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  gap: 1em;
 
-  background-color: var(soft-white);
-  color: var(dark-charcoal);
+  background-color: var(--dark-charcoal);
+  color: var(--soft-white);
+}
+
+.component_error {
+  min-height: 10em;
+  max-width: 20em;
+  max-height: 20em;
+  padding: 1em;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+
+  background-color: var(--dark-charcoal);
+  color: red;
+  outline: var(--glowing-red);
+  border-radius: 8px;
+  border: 2px solid red;
 }

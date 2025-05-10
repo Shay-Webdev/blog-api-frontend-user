@@ -2,7 +2,7 @@
   border: none;
   border-radius: 8px;
   background-color: var(--glowing-red);
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
   font-weight: bold;
   max-width: 4em;
 }
