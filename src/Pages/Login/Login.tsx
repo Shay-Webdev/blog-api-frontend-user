@@ -19,7 +19,7 @@ const loginSchema = z.object({
 type loginCredentials = z.infer<typeof loginSchema>;
 
 const Login = () => {
-  //  const navigate = useNavigate();
+  const navigate = useNavigate();
   const loginUrl = urlPaths.sessionUrl.login;
   const { showBoundary } = useErrorBoundary();
 
@@ -42,8 +42,8 @@ const Login = () => {
       const accessToken = response.data.token;
       setLocalItem("refreshToken", refreshToken);
       setLocalItem("accessToken", accessToken);
-      console.log(`tokens in login : `, refreshToken, accessToken)
-
+      console.log(`tokens in login : `, refreshToken, accessToken);
+      navigate("/");
 
       return response;
     } catch (error) {

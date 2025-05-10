@@ -4,7 +4,10 @@ function Header() {
   return (
     <header className={styles.header}>
       <h1>Blog it!</h1>
-      <MyNavLink To="/">Home</MyNavLink>
+      <nav className={styles.header_nav}>
+        <MyNavLink To="/">Home</MyNavLink>
+        <MyNavLink To="logout">Logout</MyNavLink>
+      </nav>
     </header>
   );
 }

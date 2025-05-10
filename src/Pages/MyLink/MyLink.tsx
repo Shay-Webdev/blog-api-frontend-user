@@ -6,15 +6,28 @@ type myLinkProps = {
   children: React.ReactNode;
   activeColor: string;
   inactiveColor: string;
+  activeBGColor: string;
+  inactiveBGColor: string;
   To: string;
 };
 const CustomNavLink = (props: myLinkProps) => {
-  const { activeColor, inactiveColor, children, To } = props;
+  const {
+    activeColor,
+    inactiveColor,
+    children,
+    To,
+    activeBGColor,
+    inactiveBGColor,
+  } = props;
   return (
     <NavLink
       to={To}
       style={({ isActive }) => ({
         color: isActive ? activeColor : inactiveColor,
+        backgroundColor: isActive ? activeBGColor : inactiveBGColor,
+        borderTopLeftRadius: "16px",
+        borderTopRightRadius:'16px',
+        padding: ".5em",
       })}
     >
       {children}
@@ -29,6 +42,8 @@ const MyNavLink = (props: Pick<myLinkProps, "To" | "children">) => {
       To={To}
       activeColor="var(--glowing-red)"
       inactiveColor="var(--cool-gray)"
+      activeBGColor="var(--medium-gray)"
+      inactiveBGColor="var(--dark-charcoal)"
     >
       {children}
     </CustomNavLink>
