@@ -6,7 +6,6 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 10em;
   min-height: 100vh;
   background-color: var(--medium-gray);
   color: var(--dark-charcoal);
@@ -16,6 +15,8 @@
 
 .main_container {
   flex: 1;
+  min-width: 100%;
+  min-height: 100%;
 }
 /* anchor styles*/
 a {

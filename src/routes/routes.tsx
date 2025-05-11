@@ -6,6 +6,7 @@ import { SignupWrapper } from "../Pages/SignUp/SignUp.tsx";
 import { ErrorPage } from "../Pages/Error/Error.tsx";
 import { ProtectedRoute } from "../Pages/ProtectedRoute/ProtectedRoute.tsx";
 import { Logout } from "../Pages/Logout/Logout.tsx";
+import { PostsWrapper } from "../Pages/Posts/Posts.tsx";
 
 const routes: RouteObject[] = [
   {
@@ -19,11 +20,7 @@ const routes: RouteObject[] = [
         children: [
           {
             index: true,
-            element: (
-              <div>
-                <h1>This is test page</h1>
-              </div>
-            ),
+            element: <PostsWrapper />,
           },
         ],
       },
