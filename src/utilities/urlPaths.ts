@@ -15,7 +15,7 @@ const urlPaths = {
       "http://localhost:3000/posts/:postId/comments/:commentId", // GET | PUT | DELETE
   },
   sessionUrl: {
-    singup: "http://localhost:3000/signup", // POST
+    signup: "http://localhost:3000/signup", // POST
     login: "http://localhost:3000/login", // POST
     logout: "http://localhost:3000/logout", // DELETE
   },

@@ -12,7 +12,7 @@ type CustomInputProps = {
   value?: string;
 } & InputHTMLAttributes<HTMLInputElement>;
 const CustomInput = (props: CustomInputProps) => {
-  const { type, value, onChange, className, name } = props;
+  const { type, value, onChange, className, name ,...rest} = props;
   return (
     <input
       type={type}
@@ -20,6 +20,7 @@ const CustomInput = (props: CustomInputProps) => {
       onChange={onChange}
       value={value}
       name={name}
+      {...rest}
     />
   );
 };

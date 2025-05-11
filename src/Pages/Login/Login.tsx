@@ -23,14 +23,14 @@ type loginCredentials = z.infer<typeof loginSchema>;
 const Login = () => {
   const [isLogged, setIsLogged] = useState<
     "loading" | "loggedIn" | "loggedOut"
-  >('loading');
+  >("loading");
   useEffect(() => {
     async function asyncHandler() {
       const logged = await isLoggedIn();
       console.log(`is logged in login: `, logged);
       if (!logged) {
         setIsLogged("loggedOut");
-        return
+        return;
       }
       setIsLogged("loggedIn");
     }

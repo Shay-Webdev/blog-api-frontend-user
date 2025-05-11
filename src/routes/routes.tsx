@@ -2,7 +2,7 @@ import { RouteObject } from "react-router-dom";
 import App from "../Pages/App/App.tsx";
 import { LoginOrSignup, NoLogin } from "../Pages/NoLoginPage/NoLogin.tsx";
 import { LoginWrapper } from "../Pages/Login/Login.tsx";
-import { SignUp } from "../Pages/SignUp/SignUp.tsx";
+import { SignupWrapper } from "../Pages/SignUp/SignUp.tsx";
 import { ErrorPage } from "../Pages/Error/Error.tsx";
 import { ProtectedRoute } from "../Pages/ProtectedRoute/ProtectedRoute.tsx";
 import { Logout } from "../Pages/Logout/Logout.tsx";
@@ -41,7 +41,7 @@ const routes: RouteObject[] = [
           },
           {
             path: "signup",
-            element: <SignUp />,
+            element: <SignupWrapper />,
           },
         ],
       },
