@@ -11,6 +11,7 @@ import { ErrorBoundaryWrapper } from "../Error/Error.tsx";
 import { fetchWrapperParam, postApi } from "../../utilities/fetchWrapper.ts";
 import { setLocalItem } from "../../utilities/localStorage.ts";
 import isLoggedIn from "../../utilities/isLoggedIn.ts";
+import { LoadingPage } from "../LoadingPage/LoadingPage.tsx";
 
 const loginSchema = z.object({
   email: string().email(),
@@ -20,16 +21,21 @@ const loginSchema = z.object({
 type loginCredentials = z.infer<typeof loginSchema>;
 
 const Login = () => {
-const [isLogged, setIsLogged] = useState(true)
+  const [isLogged, setIsLogged] = useState<
+    "loading" | "loggedIn" | "loggedOut"
+  >('loading');
   useEffect(() => {
-    
-    const logged = isLoggedIn()
-    if(!logged){
-      setIsLogged(false)
+    async function asyncHandler() {
+      const logged = await isLoggedIn();
+      console.log(`is logged in login: `, logged);
+      if (!logged) {
+        setIsLogged("loggedOut");
+        return
+      }
+      setIsLogged("loggedIn");
     }
-      setIsLogged(true)
-      navigate('/', {replace:true})
-  },[]) 
+    asyncHandler();
+  }, []);
   const navigate = useNavigate();
   const loginUrl = urlPaths.sessionUrl.login;
   const { showBoundary } = useErrorBoundary();
@@ -73,8 +79,12 @@ const [isLogged, setIsLogged] = useState(true)
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
-  if (isLogged){
-    return null
+  if (isLogged === "loading") {
+    return <LoadingPage />;
+  }
+  if (isLogged === "loggedIn") {
+    console.log(`isLogged state: `, isLogged);
+    return <Navigate to="/" />;
   }
   return (
     <>

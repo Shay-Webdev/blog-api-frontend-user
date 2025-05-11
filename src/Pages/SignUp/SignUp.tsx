@@ -7,3 +7,5 @@ const SignUp = () => {
 };
 
 export { SignUp };
+
+// TODO: use login as reference & copy code from there
