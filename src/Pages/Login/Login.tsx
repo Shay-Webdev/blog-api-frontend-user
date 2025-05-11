@@ -3,13 +3,14 @@ import { CustomForm } from "../../components/CustomForm/MyForm";
 import { MyInput } from "../../components/CustomInput/CustomInput";
 import styles from "./Login.module.css";
 import { urlPaths } from "../../utilities/urlPaths.ts";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { string, z, ZodError } from "zod";
-import { ChangeEventHandler, useActionState, useState } from "react";
+import { ChangeEventHandler, useActionState, useEffect, useState } from "react";
 import { useErrorBoundary } from "react-error-boundary";
 import { ErrorBoundaryWrapper } from "../Error/Error.tsx";
 import { fetchWrapperParam, postApi } from "../../utilities/fetchWrapper.ts";
 import { setLocalItem } from "../../utilities/localStorage.ts";
+import isLoggedIn from "../../utilities/isLoggedIn.ts";
 
 const loginSchema = z.object({
   email: string().email(),
@@ -19,6 +20,16 @@ const loginSchema = z.object({
 type loginCredentials = z.infer<typeof loginSchema>;
 
 const Login = () => {
+const [isLogged, setIsLogged] = useState(true)
+  useEffect(() => {
+    
+    const logged = isLoggedIn()
+    if(!logged){
+      setIsLogged(false)
+    }
+      setIsLogged(true)
+      navigate('/', {replace:true})
+  },[]) 
   const navigate = useNavigate();
   const loginUrl = urlPaths.sessionUrl.login;
   const { showBoundary } = useErrorBoundary();
@@ -62,6 +73,9 @@ const Login = () => {
       [e.currentTarget.name]: e.currentTarget.value,
     });
   };
+  if (isLogged){
+    return null
+  }
   return (
     <>
       <CustomForm legend="Login" action={action} method="POST">
