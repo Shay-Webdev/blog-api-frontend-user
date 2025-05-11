@@ -7,11 +7,15 @@ const ProtectedRoute = () => {
   const [status, setStatus] = useState<"loading" | "auth" | "noAuth">(
     "loading",
   );
+  const [sessionUser, setSessionUser] = useState<
+    Record<string, unknown> | null | undefined
+  >(undefined);
 
   useEffect(() => {
     const asyncHanlder = async () => {
       const user = await userInSession();
       setStatus(user ? "auth" : "noAuth");
+      setSessionUser(user);
     };
     asyncHanlder();
   }, []);
@@ -22,7 +26,7 @@ const ProtectedRoute = () => {
   if (status === "noAuth") {
     return <Navigate to="/nologin" replace />;
   }
-  return <Outlet />;
+  return <Outlet context={sessionUser} />;
 };
 
 export { ProtectedRoute };

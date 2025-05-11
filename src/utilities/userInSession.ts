@@ -32,7 +32,7 @@ const userInSession = async () => {
     //   console.log("acces token in local storage: ", accessTokenInLS);
     const userInSession = jwtDecode(accessTokenInLS) as IJwtPayload;
     //console.log(`user in session user: `, userInSession);
-    return userInSession;
+    return { user: userInSession, accessToken: accessTokenInLS as string };
   } catch (error) {
     throw new Error(`Error parsing user in session: ${String(error)}`);
   }

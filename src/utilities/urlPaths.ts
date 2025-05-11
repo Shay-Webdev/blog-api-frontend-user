@@ -17,7 +17,7 @@ const urlPaths = {
   sessionUrl: {
     singup: "http://localhost:3000/signup", // POST
     login: "http://localhost:3000/login", // POST
-    logout: "http://localhost:3000/login", // DELETE
+    logout: "http://localhost:3000/logout", // DELETE
   },
   tokenUrl: {
     token_Refresh: "http://localhost:3000/token/refresh", //POST
