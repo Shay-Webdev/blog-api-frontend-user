@@ -76,16 +76,10 @@ const Posts = () => {
               author={post.author.username}
               postPreview={post.content.split(" ").splice(0, 10).join(" ")}
               postTitle={post.title}
+              postId={post.id}
             />
           );
         })}
-        <Cards author="shay" postPreview="Hi there!" postTitle="first post" />
-        <Cards author="shay" postPreview="Hi there!" postTitle="first post" />
-        <Cards author="shay" postPreview="Hi there!" postTitle="first post" />
-        <Cards author="shay" postPreview="Hi there!" postTitle="first post" />
-        <Cards author="shay" postPreview="Hi there!" postTitle="first post" />
-        <Cards author="shay" postPreview="Hi there!" postTitle="first post" />
-        <Cards author="shay" postPreview="Hi there!" postTitle="first post" />
       </section>
     </section>
   );

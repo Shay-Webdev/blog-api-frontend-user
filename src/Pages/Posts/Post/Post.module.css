@@ -1,0 +1,25 @@
+.post_container {
+  display: flex;
+  flex-direction: column;
+
+  padding: 1em;
+  gap: 1em;
+}
+
+.post_headings {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.post_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex: 1;
+
+  text-align: justify;
+  padding: 1em;
+}

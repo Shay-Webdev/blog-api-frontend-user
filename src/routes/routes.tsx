@@ -7,6 +7,7 @@ import { ErrorPage } from "../Pages/Error/Error.tsx";
 import { ProtectedRoute } from "../Pages/ProtectedRoute/ProtectedRoute.tsx";
 import { Logout } from "../Pages/Logout/Logout.tsx";
 import { PostsWrapper } from "../Pages/Posts/Posts.tsx";
+import { PostWrapper } from "../Pages/Posts/Post/Post.tsx";
 
 const routes: RouteObject[] = [
   {
@@ -21,6 +22,10 @@ const routes: RouteObject[] = [
           {
             index: true,
             element: <PostsWrapper />,
+          },
+          {
+            path: "posts/:postId",
+            element: <PostWrapper />,
           },
         ],
       },
