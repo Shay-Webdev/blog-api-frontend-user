@@ -7,6 +7,7 @@ import { fetchWrapperParam, getApi } from "../../../utilities/fetchWrapper";
 import { LoadingPage } from "../../LoadingPage/LoadingPage";
 import { ErrorBoundaryWrapper } from "../../Error/Error";
 import { useParams } from "react-router-dom";
+import { CommentsWrapper } from "../../Comments/Comments";
 
 const postSchema = z.object({
   authorId: number(),
@@ -66,14 +67,18 @@ const Post = () => {
     <section className={styles.post_container}>
       <div className={styles.post_headings}>
         <h1>{post?.title}</h1>
-        <h2>posted by: {post?.author.username}</h2>
-        <h3>{post?.publishedDate.toString()}</h3>
-        <h4>{post?.updatedDate.toString()}</h4>
+        <h2>
+          Author: <span>{post?.author.username}</span>
+        </h2>
+        <h3>
+          Posted: <span>{post?.publishedDate.toString()}</span>
+        </h3>
+        <h4>
+          Edited: <span>{post?.updatedDate.toString()}</span>
+        </h4>
       </div>
       <section className={styles.post_content}>{post?.content}</section>
-      <section className={styles.comments_container}>
-        comments goes here!
-      </section>
+      <CommentsWrapper />
     </section>
   );
 };
