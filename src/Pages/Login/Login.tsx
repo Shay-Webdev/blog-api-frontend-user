@@ -12,6 +12,7 @@ import { fetchWrapperParam, postApi } from "../../utilities/fetchWrapper.ts";
 import { setLocalItem } from "../../utilities/localStorage.ts";
 import isLoggedIn from "../../utilities/isLoggedIn.ts";
 import { LoadingPage } from "../LoadingPage/LoadingPage.tsx";
+import { jwtDecode } from "jwt-decode";
 
 const loginSchema = z.object({
   email: string().email(),
@@ -57,9 +58,13 @@ const Login = () => {
       const response = await postApi(loginProps);
       const refreshToken = response.data.refreshToken;
       const accessToken = response.data.token;
+      const decodedTokens = {
+        accessToken: jwtDecode(accessToken as string),
+        refreshToken: jwtDecode(refreshToken as string),
+      };
       setLocalItem("refreshToken", refreshToken);
       setLocalItem("accessToken", accessToken);
-      console.log(`tokens in login : `, refreshToken, accessToken);
+      console.log(`decoded tokens in login : `, decodedTokens);
       navigate("/");
 
       return response;

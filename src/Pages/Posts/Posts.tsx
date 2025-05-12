@@ -7,8 +7,26 @@ import { LoadingPage } from "../LoadingPage/LoadingPage";
 import { ErrorBoundaryWrapper } from "../Error/Error";
 import { useErrorBoundary } from "react-error-boundary";
 import { Cards } from "../../components/Cards/Cards";
+import { boolean, coerce, number, object, string, z } from "zod";
+
+const postSchema = z.object({
+  authorId: number(),
+  author: object({
+    username: string(),
+  }),
+  id: number(),
+  isPublished: boolean(),
+  publishedDate: coerce.date(),
+  title: string(),
+  content: string(),
+  updatedDate: coerce.date(),
+});
+
+const postsSchema = z.array(postSchema);
+type Post = z.infer<typeof postSchema>;
 const Posts = () => {
   const [status, setStatus] = useState<"done" | "pending">("pending");
+  const [posts, setPosts] = useState<Post[]>([]);
   const { showBoundary } = useErrorBoundary();
   useEffect(() => {
     async function asyncHandler() {
@@ -26,7 +44,18 @@ const Posts = () => {
         if (!response.status) {
           throw new Error(`failed to fetch posts`);
         }
-        console.log(`posts : `, response);
+        const parsedPosts = postsSchema.safeParse(response.data);
+        if (!parsedPosts.success) {
+          console.error(`inalid post data: `, parsedPosts.error);
+          throw new Error(`invalid post data `);
+        }
+
+        setPosts(parsedPosts.data);
+
+        console.log(
+          `trimmed post content: `,
+          posts.map((post) => post.content.split(" ").splice(0, 10).join(" ")),
+        );
         setStatus("done");
       } catch (error) {
         showBoundary(error);
@@ -41,6 +70,15 @@ const Posts = () => {
     <section className={styles.posts_container}>
       <h1>See what others have to share</h1>
       <section className={styles.cards_container}>
+        {posts.map((post) => {
+          return (
+            <Cards
+              author={post.author.username}
+              postPreview={post.content.split(" ").splice(0, 10).join(" ")}
+              postTitle={post.title}
+            />
+          );
+        })}
         <Cards author="shay" postPreview="Hi there!" postTitle="first post" />
         <Cards author="shay" postPreview="Hi there!" postTitle="first post" />
         <Cards author="shay" postPreview="Hi there!" postTitle="first post" />

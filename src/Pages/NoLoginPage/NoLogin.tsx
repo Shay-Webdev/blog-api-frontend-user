@@ -2,7 +2,7 @@ import styles from "./NoLogin.module.css";
 import { Link, Outlet } from "react-router-dom";
 const LoginOrSignup = () => {
   return (
-    <div className={styles.noLoginContainer}>
+    <div className={styles.loginorsignup_container}>
       <h1>Logged Out !</h1>
       <p>
         <Link to="login">Login</Link> or <Link to="signup">Sign up</Link> to
@@ -13,7 +13,7 @@ const LoginOrSignup = () => {
 };
 const NoLogin = () => {
   return (
-    <div className="nologin_container">
+    <div className={styles.nologin_container}>
       <Outlet />
     </div>
   );

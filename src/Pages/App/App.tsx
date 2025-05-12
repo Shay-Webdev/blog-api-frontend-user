@@ -25,9 +25,9 @@ function App() {
   return (
     <div className={styles.app_container}>
       <Header></Header>
-      <section className={styles.main_container}>
+      <main className={styles.main_container}>
         <Outlet />
-      </section>
+      </main>
       <Footer></Footer>
     </div>
   );
