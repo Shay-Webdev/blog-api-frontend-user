@@ -6,7 +6,8 @@ import { fetchWrapperParam, getApi } from "../../utilities/fetchWrapper";
 import { LoadingPage } from "../LoadingPage/LoadingPage";
 import { ErrorBoundaryWrapper } from "../Error/Error";
 import { useErrorBoundary } from "react-error-boundary";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { MyButton } from "../../components/CustomButton/CustomButton";
 
 const commentSchema = z.object({
   user: object({
@@ -76,12 +77,20 @@ const Comments = () => {
     }
     asyncHandler();
   }, [showBoundary]);
+
   if (status === "pending") {
     return <LoadingPage />;
   }
   return (
     <section className={styles.comments_container}>
-      <h1>Share your opinions here</h1>
+      <h1>
+        Share your opinions here{" "}
+        <span>
+          <Link to={`/posts/${params.postId}/comments`}>
+            <MyButton buttonExtraStyle={styles.add_comment_button}>+</MyButton>
+          </Link>
+        </span>{" "}
+      </h1>
       {comments.map((comment) => {
         return (
           <Comment
@@ -92,18 +101,6 @@ const Comments = () => {
           />
         );
       })}
-      <Comment
-        content="Nice post by me"
-        postedDate={new Date()}
-        id={1}
-        user={{ username: "shay" }}
-      />
-      <Comment
-        content="Nice post by me afkhladflkda a jaldkf adj adp padjg padgj adp adpojdgp jadgpoad jpa pdgo jpj"
-        postedDate={new Date()}
-        id={2}
-        user={{ username: "shay" }}
-      />
     </section>
   );
 };

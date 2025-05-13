@@ -6,8 +6,7 @@ import { userInSession } from "../../../utilities/userInSession";
 import { fetchWrapperParam, getApi } from "../../../utilities/fetchWrapper";
 import { LoadingPage } from "../../LoadingPage/LoadingPage";
 import { ErrorBoundaryWrapper } from "../../Error/Error";
-import { useParams } from "react-router-dom";
-import { CommentsWrapper } from "../../Comments/Comments";
+import { Outlet, useParams } from "react-router-dom";
 
 const postSchema = z.object({
   authorId: number(),
@@ -78,7 +77,7 @@ const Post = () => {
         </h4>
       </div>
       <section className={styles.post_content}>{post?.content}</section>
-      <CommentsWrapper />
+      <Outlet />
     </section>
   );
 };

@@ -1,0 +1,13 @@
+.comment_form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1em;
+}
+
+.comment_content {
+  flex: 1;
+}

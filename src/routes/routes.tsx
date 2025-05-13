@@ -8,6 +8,8 @@ import { ProtectedRoute } from "../Pages/ProtectedRoute/ProtectedRoute.tsx";
 import { Logout } from "../Pages/Logout/Logout.tsx";
 import { PostsWrapper } from "../Pages/Posts/Posts.tsx";
 import { PostWrapper } from "../Pages/Posts/Post/Post.tsx";
+import { CommentsWrapper } from "../Pages/Comments/Comments.tsx";
+import { CommentFormWrapper } from "../Pages/Comments/CommentForm/CommnetForm.tsx";
 
 const routes: RouteObject[] = [
   {
@@ -26,6 +28,16 @@ const routes: RouteObject[] = [
           {
             path: "posts/:postId",
             element: <PostWrapper />,
+            children: [
+              {
+                index: true,
+                element: <CommentsWrapper />,
+              },
+              {
+                path: "comments",
+                element: <CommentFormWrapper />,
+              },
+            ],
           },
         ],
       },

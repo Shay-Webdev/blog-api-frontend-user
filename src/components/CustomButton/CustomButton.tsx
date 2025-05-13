@@ -1,21 +1,25 @@
 import { ButtonHTMLAttributes } from "react";
 import styles from "./CustomButton.module.css";
 
-type CustomBtnProps = {} & ButtonHTMLAttributes<HTMLButtonElement>;
+type CustomBtnProps = {
+  buttonExtraStyle?: string;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 const CustomButton = (props: CustomBtnProps) => {
-  const { className, children, ...rest } = props;
+  const { className, buttonExtraStyle, children, ...rest } = props;
   return (
-    <button className={className} {...rest}>
+    <button className={`${className} ${buttonExtraStyle}`} {...rest}>
       {children}
     </button>
   );
 };
 const MyButton = (props: CustomBtnProps) => {
-  const { children, ...rest } = props;
+  const { children, buttonExtraStyle, ...rest } = props;
+  const customBtnStyle = styles.custom_button;
   return (
     <CustomButton
       children={children}
-      className={styles.custom_button}
+      className={customBtnStyle}
+      buttonExtraStyle={buttonExtraStyle}
       {...rest}
     ></CustomButton>
   );
