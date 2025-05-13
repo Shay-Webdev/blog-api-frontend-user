@@ -39,7 +39,6 @@ const CommentForm = () => {
       };
       const response = await postApi(commentPostProps);
       console.log(`params in comment form: `, params);
-      //TODO: use link after submitting to got the url
       return response;
     } catch (error) {
       console.error(`error in comment form: `, error);
@@ -60,7 +59,7 @@ const CommentForm = () => {
   };
   return (
     <form action={action} className={styles.comment_form}>
-      <fieldset>
+      <fieldset className={styles.comment_fieldset}>
         <legend>Comment it</legend>
 
         <textarea
