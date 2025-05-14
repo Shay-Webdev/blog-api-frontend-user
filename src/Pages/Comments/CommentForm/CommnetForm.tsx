@@ -3,8 +3,11 @@ import { MyButton } from "../../../components/CustomButton/CustomButton";
 import styles from "./CommentForm.module.css";
 import { Link, useParams } from "react-router-dom";
 import { useErrorBoundary } from "react-error-boundary";
-import { fetchWrapperParam, postApi } from "../../../utilities/fetchWrapper";
-import { ChangeEventHandler, useActionState, useState } from "react";
+import {
+  type fetchWrapperParam,
+  postApi,
+} from "../../../utilities/fetchWrapper";
+import { type ChangeEventHandler, useActionState, useState } from "react";
 import { ErrorBoundaryWrapper } from "../../Error/Error";
 import { userInSession } from "../../../utilities/userInSession";
 
@@ -23,7 +26,11 @@ const CommentForm = () => {
     const formValues = Object.fromEntries(formData);
     const result = commentFormSchema.safeParse(formValues);
     if (result.error) {
-      console.error(`error in comment form validation: `, result.error.message);
+      console.error(
+        `error in comment form validation: `,
+        result.error.message,
+        prevState,
+      );
       return result.error;
     }
     try {
