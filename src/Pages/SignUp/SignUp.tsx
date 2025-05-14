@@ -45,7 +45,11 @@ const Signup = () => {
     const formValues = Object.fromEntries(formData);
     const result = signupSchema.safeParse(formValues);
     if (result.error) {
-      console.log(`error in signup validation: `, result.error.message);
+      console.log(
+        `error in signup validation: `,
+        result.error.message,
+        prevState,
+      );
       return result.error;
     }
     try {
