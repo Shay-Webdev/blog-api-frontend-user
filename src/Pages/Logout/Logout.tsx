@@ -1,11 +1,27 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { deleteApi, fetchWrapperParam } from "../../utilities/fetchWrapper";
 import { urlPaths } from "../../utilities/urlPaths";
 import { deleteLocalItem } from "../../utilities/localStorage";
 import { userInSession } from "../../utilities/userInSession";
 import { LoadingPage } from "../LoadingPage/LoadingPage";
+import isLoggedIn from "../../utilities/isLoggedIn";
 const Logout = () => {
+  const [isLogged, setIsLogged] = useState<
+    "loading" | "loggedIn" | "loggedOut"
+  >("loading");
+  useEffect(() => {
+    async function asyncHandler() {
+      const logged = await isLoggedIn();
+      console.log(`is logged in logout: `, logged);
+      if (!logged) {
+        setIsLogged("loggedOut");
+        return;
+      }
+      setIsLogged("loggedIn");
+    }
+    asyncHandler();
+  }, []);
   const navigate = useNavigate();
   const [status, setStatus] = useState<"done" | "pending">("pending");
   useEffect(() => {
@@ -36,7 +52,14 @@ const Logout = () => {
     }
     asyncHandler();
   }, [navigate]);
+  if (isLogged === "loggedOut") {
+    console.log(`isLogged state: `, isLogged);
+    return <Navigate to="/" />;
+  }
   if (status === "pending") {
+    return <LoadingPage />;
+  }
+  if (isLogged === "loading") {
     return <LoadingPage />;
   }
   return null;
